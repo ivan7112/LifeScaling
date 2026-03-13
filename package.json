@@ -1,0 +1,20 @@
+{
+  "name": "lifescaling",
+  "version": "1.0.0",
+  "description": "Web proyect to help people endure good habits and personal growth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan7112/LifeScaling.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivan7112/LifeScaling/issues"
+  },
+  "homepage": "https://github.com/ivan7112/LifeScaling#readme"
+}
