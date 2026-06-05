@@ -4,7 +4,9 @@
   "description": "Web proyect to help people endure good habits and personal growth",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "cd ./lifescaling && npm run build"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,9 @@
   },
   "homepage": "https://github.com/ivan7112/LifeScaling#readme",
   "dependencies": {
+    "express": "^5.2.1",
     "mongodb": "^7.1.0",
+    "svelte": "^5.56.2",
     "vis-network": "^10.0.2"
   }
 }
