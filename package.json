@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "cd ./lifescaling && npm run build"
+    "build": "cd ./src/frontend && npm run build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ivan7112/LifeScaling#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "mongodb": "^7.1.0",
     "svelte": "^5.56.2",
