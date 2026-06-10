@@ -2,7 +2,13 @@
 import { SvelteFlow,Background, MiniMap, Controls, Panel } from '@xyflow/svelte';
 import '@xyflow/svelte/dist/style.css';
 
-let nodes=$state.raw([{id:'1', position:{x:0,y:0},data:{label:'B'}},
+import TreeNode from '../customNodes/TreeNode.svelte';
+
+
+
+const nodeTypes={treeNode:TreeNode};
+
+let nodes=$state.raw([{id:'1', position:{x:0,y:0},data:{label:'B', completed:false}, type:'treeNode'},
     {id:'2', position:{x:100,y:100},data:{label:'A'}}
 ]);
 
@@ -20,7 +26,7 @@ let edges=$state.raw([
     <h1>Pruebas</h1>
 
     <div style:width='100vw' style:height='100vh'>
-        <SvelteFlow bind:nodes bind:edges fitView>
+        <SvelteFlow bind:nodes bind:edges {nodeTypes} fitView>
             <Background/>
             
             <Controls/>
