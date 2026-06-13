@@ -7,7 +7,7 @@
     const color = $derived(data.completed ? '#2bfb79' : '#e15f5f');
     
 
-    const { updateNodeData } = useSvelteFlow();
+    const { updateNodeData, getNodes, getEdges } = useSvelteFlow();
 
 
 
@@ -19,10 +19,10 @@ function completionCohererence(nodes,edges){ //Si source incompleto target tambi
     
     for (let i=0;i<nodes.length;i++){
         
-        if(nodes[i].data.completed && !(searchFather(nodes[i], nodes, edges).data.completed)){
+        if(nodes[i].data.completed && !(searchFather(nodes[i], nodes, edges)?.data?.completed)){
             
-            nodes[i].data.completed=false;
-            //updateNodeData(nodes[i].id,{label:nodes[i].data.label, completed:false});
+            //nodes[i].data.completed=false;
+            updateNodeData(nodes[i].id,{completed:false});
             
         }
     }
@@ -31,18 +31,17 @@ function completionCohererence(nodes,edges){ //Si source incompleto target tambi
 }
 
 
-function searchFather(node, nodes, edges){
-    //console.log('IN');
-    let nodeId=node.id;
+function searchFather(nodeId, nodes, edges){
     
-    let fatherId=edges.find(e=>e.target===nodeId).source;
+    
+    
+    let fatherId=edges.find(e=>e.target===nodeId)?.source;
 
    
 
     let father=nodes.find(n=>n.id===fatherId);
 
-    //console.log(father);
-
+    
     
 
     if(father) return father;
@@ -64,8 +63,9 @@ function searchFather(node, nodes, edges){
     {data.label}
     <div>
         <button onclick={()=>{
-            updateNodeData(id,{completed:false});
-        }}>Update
+            
+            console.log(completionCohererence(getNodes(), getEdges()));
+        }}>Show Father in Console
         </button>
     </div>
 </div>
