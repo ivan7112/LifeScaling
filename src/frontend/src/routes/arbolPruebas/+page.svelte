@@ -15,7 +15,7 @@ let nodes=$state.raw([{id:'1', position:{x:0,y:0},data:{label:'A', completed:fal
 ]);
 
 let edges=$state.raw([
-{id:'e1-2', source:'1',target:'2', sourceHandle:'Bottom'} //1 padre de 2. Si 1 incompleto 2 tambien
+{id:'e1-2', source:'1',target:'2', sourceHandle:'source', targetHandle:'target', type:'smoothstep'  } //1 padre de 2. Si 1 incompleto 2 tambien
 
 ]);
 

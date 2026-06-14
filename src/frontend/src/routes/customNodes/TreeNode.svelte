@@ -56,15 +56,16 @@ function searchFather(nodeId, nodes, edges){
 </script>
 
  <div class="handle-container">
-    <Handle type="source" position={Position.Top} id="Top" />
-    <Handle type="source" position={Position.Bottom} id="Bottom" />
+    <Handle type="source" position={Position.Top} id="source" />
+    <Handle type="target" position={Position.Top} id="target" />
   </div>
 <div  id="circularNode" style:background-color={color}> 
     {data.label}
     <div>
         <button onclick={()=>{
             
-            console.log(completionCohererence(getNodes(), getEdges()));
+           completionCohererence(getNodes(), getEdges());
+           console.log(searchFather(id,getNodes(), getEdges()));
         }}>Show Father in Console
         </button>
     </div>
