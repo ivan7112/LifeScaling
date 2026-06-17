@@ -9,6 +9,8 @@
 
     const { updateNodeData, getNodes, getEdges } = useSvelteFlow();
 
+    let dialog; //Para el Popup
+
 
 
 //Funciones
@@ -53,6 +55,9 @@ function searchFather(nodeId, nodes, edges){
 
 
 
+
+
+
 </script>
 
  <div class="handle-container">
@@ -60,16 +65,22 @@ function searchFather(nodeId, nodes, edges){
     <Handle type="target" position={Position.Top} id="target" />
   </div>
 <div  id="circularNode" style:background-color={color}> 
-    {data.label}
+    
     <div>
-        <button onclick={()=>{
-            
-           completionCohererence(getNodes(), getEdges());
-           console.log(searchFather(id,getNodes(), getEdges()));
-        }}>Show Father in Console
-        </button>
+        <button onclick={()=>{dialog.showModal()}}>{data.label}</button>
     </div>
 </div>
+
+
+<dialog id='popup' bind:this={dialog}>
+    <h1>Título Tarea</h1>
+
+    <div>
+        <h2>Descripción Tarea</h2>
+    </div>
+
+    <button onclick={() => dialog.close()}>Completar/Descompletar Tarea</button>
+</dialog>
 
 
 <style>
