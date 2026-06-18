@@ -1,8 +1,9 @@
 
 import {MongoClient, ServerApiVersion} from 'mongodb';
+import dns from "node:dns/promises";
 
 async function loadApiArboles(app){
-    
+    dns.setServers(["1.1.1.1"]);    
     
     let mongoUri='mongodb+srv://ivanneo711_db_user:WxVmDuIcVexnm3Bi@graphdb.imvucly.mongodb.net/?appName=GraphDB';
 
@@ -23,11 +24,13 @@ async function loadApiArboles(app){
     const col=db.collection('trees');
 
 
-    app.get('/graphs',(req,res)=>{
-        const data=col.find();
-        return data;
+    app.get('/graphs',async (req,res)=>{
+        const data=await col.find().toArray();
+        return res.send(data);
 
-    })
+    });
+
+    
 
 
 }
