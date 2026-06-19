@@ -1,6 +1,7 @@
 
 import {MongoClient, ServerApiVersion} from 'mongodb';
 import dns from "node:dns/promises";
+import { ObjectId } from 'mongodb';
 
 async function loadApiArboles(app){
     dns.setServers(["1.1.1.1"]);    
@@ -26,13 +27,15 @@ async function loadApiArboles(app){
     //GET
     app.get('/graphs',async (req,res)=>{
         const data=await col.find().toArray();
-        return res.status(200).send(data);
-
+        res.status(200);
+        return res.json(data)
     });
 
-    app.get('/graphs/:id',async (req,res)=>{
-        const data=col.find({_id:req.params.id});
-        return res.status(200).send(data);
+    app.get("/graphs/:id",async (req,res)=>{
+        const data=await col.findOne({_id:new ObjectId(req.params.id)});
+        console.log(req.params.id);
+        res.status(200);
+        return res.json(data);
     });
 
     //POST
@@ -40,13 +43,13 @@ async function loadApiArboles(app){
         if(!(req.body.nodes && req.body.edges && req.body.name)) res.sendStatus(400);
         //Verificar sintáxis nodos-edges? Replicados?
 
-        col.insertOne({nodes:`${req.body.nodes}`,edges:`${req.body.edges}`,name:`${req.body.name}`});
-        res.sendStatus(201);
+        await col.insertOne({nodes:req.body.nodes, edges:req.body.edges, name:`${req.body.name}`});
+        return res.sendStatus(201);
     });
 
-    app.post('graphs/:id',async (req,res)=>{
-        res.sendStatus(405);
-    })
+    app.post('/graphs/:id',async (req,res)=>{
+        return res.sendStatus(405);
+    });
 
     //PUT
 
@@ -54,7 +57,7 @@ async function loadApiArboles(app){
 
         if(!(req.body.nodes && req.body.edges && req.body.name)) res.sendStatus(400);
 
-        col.updateOne({_id:`${req.params.id}`},
+        await col.updateOne({_id:`${req.params.id}`},
             {$set:{nodes:`${req.body.nodes}`,edges:`${req.body.edges}`,name:`${req.body.name}`}});
         res.sendStatus(200);
     });
@@ -67,20 +70,25 @@ async function loadApiArboles(app){
     //DELETE
 
     app.delete('/graphs',async (req,res)=>{
-        col.deleteMany({});
+        await col.deleteMany({});
         res.sendStatus(200);
     });
 
-    app.delete('graphs/:id', async (req,res)=>{
-        col.deleteOne({_id:req.params.id});
+    app.delete('/graphs/:id', async (req,res)=>{
+        await col.deleteOne({_id:new ObjectId(req.params.id)});
+        return res.sendStatus(200);
     });
 
 
 }
 
-
+//---------------------------------- Usar connect, close en cada operación?
 async function connectToDB(client){
     await client.connect();
+}
+
+async function disconnect(client){
+    await client.close();
 }
 
 export {loadApiArboles};
