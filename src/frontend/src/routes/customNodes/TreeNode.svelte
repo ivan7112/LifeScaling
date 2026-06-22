@@ -4,7 +4,7 @@
 
     let {id,data}=$props();
 
-    const color = $derived(data.completed ? '#2bfb79' : '#e15f5f');
+    let color = $derived(data.completed ? '#2bfb79' : '#e15f5f');
     
 
     const { updateNodeData, getNodes, getEdges } = useSvelteFlow();
@@ -21,9 +21,9 @@ function completionCohererence(nodes,edges){ //Si source incompleto target tambi
     
     for (let i=0;i<nodes.length;i++){
         
-        if(nodes[i].data.completed && !(searchFather(nodes[i], nodes, edges)?.data?.completed)){
-            
-            //nodes[i].data.completed=false;
+        //if(nodes[i].data.completed && searchFather(nodes[i], nodes, edges) && !(searchFather(nodes[i], nodes, edges)?.data?.completed)){
+          if(false){  
+           
             updateNodeData(nodes[i].id,{completed:false});
             
         }
@@ -47,13 +47,27 @@ function searchFather(nodeId, nodes, edges){
     
 
     if(father) return father;
-    else return {}; 
+    else return null; 
 
 
 }
 
 
+function completeTask(nodeId){
 
+    let estado=getNodes().find(e=>e.id===nodeId)?.data.completed;
+    
+    if(estado) estado=false;
+    else estado=true;
+
+    
+    updateNodeData(nodeId,{completed:estado});
+    
+    completionCohererence(getNodes(), getEdges());
+
+
+
+}
 
 
 
@@ -79,7 +93,20 @@ function searchFather(nodeId, nodes, edges){
         <h2>Descripción Tarea</h2>
     </div>
 
-    <button onclick={() => dialog.close()}>Completar/Descompletar Tarea</button>
+    {#if !getNodes().find(e=>e.id===id)?.data.completed}
+    <button onclick={() => {
+        completeTask(id);
+        dialog.close();
+        }}>Completar Tarea</button>
+
+
+    {:else}
+    <button onclick={() => {
+        completeTask(id);
+        dialog.close();
+        }}>Descompletar Tarea</button>
+    {/if}
+
 </dialog>
 
 
