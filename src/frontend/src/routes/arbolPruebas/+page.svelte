@@ -43,7 +43,7 @@ let edges=$state.raw([
 
     <h1>Pruebas</h1>
 
-    <div style:width='100vw' style:height='100vh'>
+    <div style:width='100vw' style:height='80vh'>
         <SvelteFlow bind:nodes bind:edges {nodeTypes} fitView oninit={()=>{console.log('Initiated');}}>
             <Background/>
             
