@@ -20,9 +20,10 @@ function completionCohererence(nodes,edges){ //Si source incompleto target tambi
 
     
     for (let i=0;i<nodes.length;i++){
-        
-        //if(nodes[i].data.completed && searchFather(nodes[i], nodes, edges) && !(searchFather(nodes[i], nodes, edges)?.data?.completed)){
-          if(false){  
+        let father=searchFather(nodes[i].id, nodes,edges);
+        //console.log(searchFather(nodes[i].id, nodes,edges));
+        if(nodes[i].data.completed && father && !(father.data.completed)){
+             
            
             updateNodeData(nodes[i].id,{completed:false});
             
