@@ -21,10 +21,12 @@
   },
   "homepage": "https://github.com/ivan7112/LifeScaling#readme",
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.2",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "mongodb": "^7.3.0",
     "svelte": "^5.56.2",
+    "tailwindcss": "^4.3.2",
     "vis-network": "^10.0.2"
   }
 }
