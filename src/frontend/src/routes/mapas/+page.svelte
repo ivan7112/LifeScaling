@@ -25,27 +25,21 @@
     
 </script>
 
+<div class="bg-gray-100">
+    <h1 class="text-5xl text-blue-600 font-bold  mb-10">Mapas</h1>
 
-<h1>Mapas</h1>
+    <div class="grid grid-cols-3">
 
-<div>
+        {#each graphs as tree}
 
-    {#each graphs as tree}
-    <a href="./mapas/{tree._id}">
-    <div class="graphContainer">
-        <h3>{tree.name}</h3>
-        <img src={tree.image} alt="Imagen de Portada" width="100px" height="100px">
+        <a href="./mapas/{tree._id}" class="border-4 flex w-fit rounded-2xl ">
+        <div class="bg-amber-200 flex items-center justify-center">
+            <h3 class="font-bold text-2xl ">{tree.name}</h3>
+            <img src={tree.image} alt="Imagen de Portada" width="600px" height="600px">
+        </div>
+        </a>
+        {/each }
     </div>
-    </a>
-    {/each }
+
 </div>
 
-<style>
-    
-    .graphContainer{
-        border-style: groove;
-        border-width: 10px;
-        border-color: black;
-        
-    }
-</style>
