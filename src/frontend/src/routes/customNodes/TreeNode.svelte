@@ -82,12 +82,12 @@ function completeTask(nodeId){
 <div  id="circularNode" style:background-color={color}> 
     
     <div>
-        <button onclick={()=>{dialog.showModal()}}>{data.label}</button>
+        <button  class="text-3x1 font-bold" onclick={()=>{dialog.showModal()}}>{data.label}</button>
     </div>
 </div>
 
 
-<dialog id='popup' bind:this={dialog}>
+<dialog id='popup' bind:this={dialog} class="items-end">
     <h1>Título Tarea</h1>
 
     <div>

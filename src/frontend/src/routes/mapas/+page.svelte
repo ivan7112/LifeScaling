@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
     
 
-
+ 
 
 
     const BASE_URL_API="/api/v1";

@@ -8,7 +8,7 @@
     "start": "node index.js",
     "build": "cd ./src/frontend && npm run build",
     "updaterun": "npm run build && npm start",
-    "dev": "cd ./src/frontend && npm run dev"
+    "dev": "concurrently  \"npm start\" \"cd ./src/frontend &&  npm run dev\""
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,10 @@
   },
   "homepage": "https://github.com/ivan7112/LifeScaling#readme",
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.2",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "mongodb": "^7.3.0",
     "svelte": "^5.56.2",
-    "tailwindcss": "^4.3.2",
     "vis-network": "^10.0.2"
   }
 }
