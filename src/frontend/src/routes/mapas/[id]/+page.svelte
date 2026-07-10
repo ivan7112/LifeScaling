@@ -35,18 +35,23 @@
 
 
 </script>
+<div class="bg-blue-100">
+<h1 class="text-5xl text-blue-600 font-bold  mb-10">{name}</h1>
 
-<h1>{name}</h1>
+    <div style:width='100vw' style:height='80vh'>
+        <SvelteFlow bind:nodes bind:edges {nodeTypes} fitView oninit={()=>{console.log('Initiated');}}>
 
-<div style:width='100vw' style:height='80vh'>
-    <SvelteFlow bind:nodes bind:edges {nodeTypes} fitView oninit={()=>{console.log('Initiated');}}>
-        <Background/>
-            
-        <Controls/>
-            
+            <Background/>
+                
+            <Controls/>
+                
 
-        <Panel position='bottom-right'>
-            <MiniMap/>
-        </Panel>
-    </SvelteFlow>
+            <Panel position='bottom-right'>
+                <MiniMap/>
+            </Panel>
+
+        </SvelteFlow>
+
+    </div>
+
 </div>
