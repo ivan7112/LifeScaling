@@ -30,9 +30,11 @@
 
     <h1 class="text-5xl text-blue-600 font-bold  mb-10">Mapas</h1>
 
-    <div class="grid grid-cols-3">
+    <div class="grid grid-cols-2">
 
         {#each graphs as tree}
+        <Tarjeta id={tree._id} name={tree.name} image={tree.image} />
+        <Tarjeta id={tree._id} name={tree.name} image={tree.image} />
         <Tarjeta id={tree._id} name={tree.name} image={tree.image} />
         {/each }
     </div>
