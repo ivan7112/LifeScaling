@@ -34,6 +34,7 @@ let selectedNodeId=$state(null);
 function handleNodeClick({node, event}){
     selectedNodeData=node.data;
     selectedNodeId=node.id;
+   
 
     
 }
@@ -48,10 +49,43 @@ function searchFather(nodeId, nodes, edges){
 
 
 
-function searchChildren(nodeId, nodes, edges){
-        let res=[];
+function searchChildrenIds(nodeId, nodes, edges){
+        
 
         let childrenIds=edges.filter(e=> e.source===nodeId).map(e=>e.target);
+
+        return childrenIds;
+
+        
+}
+
+
+function completeNode(nodeId){
+    nodes=nodes.map(n=>n.id===nodeId ? {... n , data: {... n.data, completed:true}}: n);
+}
+
+function uncompleteNode(nodeId){
+    nodes=nodes.map(n=>n.id===nodeId ? {... n , data: {... n.data, completed:false}}: n);
+}
+
+
+function uncompleteSuccesors(nodeId){ //Pasa a incompleto un nodo y sus hijos
+
+    let childrenIds=searchChildrenIds(nodeId,nodes,edges);
+
+    //Caso base
+    uncompleteNode(nodeId);
+    
+    if(!(childrenIds.length===0)){ 
+        
+   
+        for(let i=0; i<childrenIds.length;i++){
+
+            uncompleteSuccesors(childrenIds[i]);
+
+        }
+    }
+
 }
 
 </script>
@@ -97,9 +131,10 @@ function searchChildren(nodeId, nodes, edges){
 
         {#if selectedNodeData.completed}
             <div class="m-5">
-                <button class="bg-red-400 font-extrabold rounded-3xl w-2xl h-1.5x1 hover:text-white" onclick={()=>{
-                    nodes=nodes.map((n)=>n.id===selectedNodeId ? 
-                    {...n, data:{...selectedNodeData, completed:false}}: n );
+                <button class="bg-red-400 font-extrabold rounded-3xl w-2xl h-1.5x1 hover:text-white" 
+                onclick={()=>{
+
+                    uncompleteSuccesors(selectedNodeId);
 
                 }}>Marcar Como No Completado</button>
 
@@ -112,8 +147,7 @@ function searchChildren(nodeId, nodes, edges){
                 <button class="bg-green-400 font-extrabold rounded-3xl w-2xl h-1.5x1 hover:text-white" onclick={()=>{
                     let father=searchFather(selectedNodeId, nodes, edges);
                     if(!father || father?.data.completed){
-                        nodes=nodes.map((n)=>n.id===selectedNodeId ? 
-                        {...n, data:{...selectedNodeData, completed:true}}: n );
+                       completeNode(selectedNodeId);
                     }
                 }}>Marcar Como Completado</button>
 
