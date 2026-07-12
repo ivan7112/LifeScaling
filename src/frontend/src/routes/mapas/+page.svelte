@@ -34,8 +34,7 @@
 
         {#each graphs as tree}
         <Tarjeta id={tree._id} name={tree.name} image={tree.image} />
-        <Tarjeta id={tree._id} name={tree.name} image={tree.image} />
-        <Tarjeta id={tree._id} name={tree.name} image={tree.image} />
+        
         {/each }
     </div>
 
