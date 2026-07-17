@@ -30,6 +30,11 @@ let edges=$state.raw([
 let selectedNodeData=$state(null);
 let selectedNodeId=$state(null);
 
+//Datos para el POST
+
+let graphname=$state("");
+let imagelink=$state("");
+
 
 //Funciones-----------------------------------------
 
@@ -135,10 +140,37 @@ const  handleOnconnectEnd=(event, connectionState) => {
 
     edges=[... edges, newEdge];
 
-    console.log(nodes);
+    //console.log(nodes);
+    //console.log(edges);
 
 
 }
+
+
+
+const postMap= async (nodes, edges, graphname, imagelink) =>{
+
+    let body={
+        'nodes':nodes,
+        'edges':edges,
+        'name':graphname,
+        'image':imagelink
+    }
+
+    //console.log(body);
+
+    try{
+    await fetch('/api/v1/graphs', {method:'POST', body:JSON.stringify(body), 
+        headers:{'Content-Type':'application/json'}});
+    }catch(e){
+
+        console.log(e);
+    }
+    
+}
+
+
+
 
 </script>
 
@@ -212,6 +244,25 @@ const  handleOnconnectEnd=(event, connectionState) => {
         {/if}
     </div>
     {/if}
+
+    <div class="m-10 mb-50 font-bold text-2x1 text-blue-500 col-end-1">
+
+        <div class="m-10 ">
+            <label for="graphimage">Cover Image</label>
+            <input class="border-2 text-black" id="graphimage" type="text" bind:value={imagelink} alt="Select an Image">
+        </div>
+
+        <div class="m-10 ">
+            <label for="graphname">Map Name</label>
+            <input class="border-2 text-black" id="graphname" type="text" bind:value={graphname}>
+        </div>
+
+        <button onclick={()=>{
+            postMap(nodes,edges,graphname,imagelink);
+        }}>Publish Map</button>
+
+
+    </div>
 
 </div>
 

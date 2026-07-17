@@ -14,7 +14,9 @@
     //Limitación para quer solo pueda tener un solo  padre
    let connections=useNodeConnections({handleType:'target'});
 
-   let isConnectable=$derived(connections.current.length===0);
+   let isConnectable=$derived(connections.current.length===0 && !(id==='1'));
+
+   
 
     
 
@@ -38,7 +40,7 @@
 
  <div class="handle-container">
 
-    <Handle type="source" position={Position.Bottom} id="source"  />
+    <Handle type="source" position={Position.Bottom} id="source"   />
     <Handle type="target" position={Position.Top} id="target" {isConnectable} />
 
  </div>
@@ -47,14 +49,6 @@
     
     <p class="text-2xl">{data.label}</p>
 </div>
-
-
-
-
-
-
-
-
 
 
 

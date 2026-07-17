@@ -58,7 +58,7 @@ async function loadApiArboles(app){
 
     app.put(BASE_URL_API+'/graphs/:id', async (req,res)=>{
 
-        if(!(req.body.nodes && req.body.edges && req.body.name)) res.sendStatus(400);
+        if(!(req.body.nodes && req.body.edges && req.body.name && req.body.image)) res.sendStatus(400);
 
         await col.updateOne({_id:`${req.params.id}`},
             {$set:{nodes:`${req.body.nodes}`,edges:`${req.body.edges}`,name:`${req.body.name}`}});
