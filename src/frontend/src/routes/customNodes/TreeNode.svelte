@@ -65,7 +65,7 @@
 
 #circularNode{
     border-style: solid;
-    border-radius: 50px;
+    border-radius: 5px;
     padding: 15px;
    
     
