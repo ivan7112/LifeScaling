@@ -19,5 +19,9 @@
         <a href="/arbolPruebas">Pruebas</a>
     </div>
 
+    <div class="hover:text-red-500 hover:text-3xl ml-3">
+        <a href="/editor">Editor de Mapas</a>
+    </div>
+
 
 </div>

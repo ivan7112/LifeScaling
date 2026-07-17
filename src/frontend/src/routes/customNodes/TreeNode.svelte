@@ -1,5 +1,5 @@
 <script>
-    import {Handle,Position, useSvelteFlow} from '@xyflow/svelte';
+    import {Handle,Position, useNodeConnections, useSvelteFlow} from '@xyflow/svelte';
    
     
 
@@ -10,9 +10,11 @@
 
     const { updateNodeData, getNodes, getEdges } = useSvelteFlow();
 
-    let dialog; //Para el Popup
+   
+    //Limitación para quer solo pueda tener un solo  padre
+   let connections=useNodeConnections({handleType:'target'});
 
-    //Evento para enviar datos al componente padre
+   let isConnectable=$derived(connections.current.length===0);
 
     
 
@@ -36,8 +38,8 @@
 
  <div class="handle-container">
 
-    <Handle type="source" position={Position.Top} id="source" />
-    <Handle type="target" position={Position.Top} id="target" />
+    <Handle type="source" position={Position.Bottom} id="source"  />
+    <Handle type="target" position={Position.Top} id="target" {isConnectable} />
 
  </div>
 
