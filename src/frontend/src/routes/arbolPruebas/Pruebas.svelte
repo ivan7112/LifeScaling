@@ -257,7 +257,7 @@ const postMap= async (nodes, edges, graphname, imagelink) =>{
             <input class="border-2 text-black" id="graphname" type="text" bind:value={graphname}>
         </div>
 
-        <button onclick={()=>{
+        <button class="hover:text-white bg-green-300 hover:bg-green-600" onclick={()=>{
             postMap(nodes,edges,graphname,imagelink);
         }}>Publish Map</button>
 
