@@ -1,9 +1,9 @@
 <script>
-    import {Handle,Position, useNodeConnections, useSvelteFlow} from '@xyflow/svelte';
+    import {Handle,Position, useNodeConnections, useSvelteFlow, NodeResizer} from '@xyflow/svelte';
    
     
 
-    let {id,data}=$props();
+    let {id,data, selected}=$props();
 
     let color = $derived(data.completed ? '#2bfb79' : '#e15f5f');
     
@@ -38,17 +38,23 @@
 
 </script>
 
- <div class="handle-container">
 
+
+ <div class="handle-container">
+    
     <Handle type="source" position={Position.Bottom} id="source"   />
     <Handle type="target" position={Position.Top} id="target" {isConnectable} />
-
+    
  </div>
 
 <div  id="circularNode" style:background-color={color}> 
+
+    
     
     <p class="text-2xl">{data.label}</p>
 </div>
+
+
 
 
 

@@ -6,8 +6,9 @@ import TreeNode from '../customNodes/TreeNode.svelte';
 import { onMount } from 'svelte';
 
 import '../../../global.css';
+	import { title } from 'process';
 
-const { screenToFlowPosition } = useSvelteFlow();
+const { screenToFlowPosition, updateNodeData } = useSvelteFlow();
 
 
 const nodeTypes={treeNode:TreeNode};
@@ -29,6 +30,10 @@ let edges=$state.raw([
 //Datos Nodo
 let selectedNodeData=$state(null);
 let selectedNodeId=$state(null);
+
+let selectedTitle=$state("");
+let selectedDescription=$state("");
+let selectedLabel=$state("");
 
 //Datos para el POST
 
@@ -245,20 +250,57 @@ const postMap= async (nodes, edges, graphname, imagelink) =>{
     </div>
     {/if}
 
-    <div class="m-10 mb-50 font-bold text-2x1 text-blue-500 col-end-1">
+    
+
+    {#if selectedNodeId}
+    <div class="m-10 font-bold text-2xl text-black bg-amber-100 col-end-1 rounded-2xl">
+
+        <h1 class="text-3xl text-blue-700 ">Update Task</h1>
+
+        <div class="m-10">
+            <label for="nodeTitle">Task Title</label>
+            <input id="nodeTitle" class="bg-gray-100 border-2 focus:bg-gray-200" type="text" bind:value={selectedTitle} /> 
+        </div>
+
+        <div class="m-10">
+            <label for="nodeDescription">Task Description</label>
+            <textarea id="nodeDescription" class="bg-gray-100 border-2 focus:bg-gray-200"  bind:value={selectedDescription}></textarea> 
+        </div>
+
+        <div class="m-10">
+            <label for="nodeLabel">Task Label</label>
+            <input  id="nodeLabel" type="text" class="bg-gray-100 border-2 focus:bg-gray-200"  bind:value={selectedLabel} /> 
+        </div>
+
+        <button class="hover:text-white bg-green-300 hover:bg-green-600 p-5 rounded-2xl m-10" 
+        onclick={()=>{
+            
+            updateNodeData(selectedNodeId,{label:selectedLabel, description:selectedDescription,
+                title:selectedTitle
+            });
+        }}>Update Task</button>
+
+    </div> 
+
+    {/if}
+
+    <div class="m-10 mb-50 font-bold text-2x1 text-black col-end-1 bg-amber-100 rounded-2xl">
+
+        <h1 class="text-3xl text-blue-700">Publish Map</h1>
 
         <div class="m-10 ">
             <label for="graphimage">Cover Image</label>
-            <input class="border-2 text-black" id="graphimage" type="text" bind:value={imagelink} alt="Select an Image">
+            <input class="bg-gray-100 border-2 focus:bg-gray-200" id="graphimage" type="text" bind:value={imagelink} alt="Select an Image">
         </div>
 
         <div class="m-10 ">
             <label for="graphname">Map Name</label>
-            <input class="border-2 text-black" id="graphname" type="text" bind:value={graphname}>
+            <input class="bg-gray-100 border-2 focus:bg-gray-200" id="graphname" type="text" bind:value={graphname}>
         </div>
 
-        <button class="hover:text-white bg-green-300 hover:bg-green-600" onclick={()=>{
+        <button class="hover:text-white bg-green-300 hover:bg-green-600 p-5 rounded-2xl m-10" onclick={()=>{
             postMap(nodes,edges,graphname,imagelink);
+            window.location.href="/mapas";
         }}>Publish Map</button>
 
 
